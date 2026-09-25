@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="毎日の気分を記録して、あとから振り返るためのアプリ、Mood Log。">
+  <title>Mood Log</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <p class="eyebrow">日々の、小さな記録</p>
+      <h1>Mood Log<span class="brand-dot" aria-hidden="true">.</span></h1>
+      <p class="intro-text">毎日の気分を記録して、あとから振り返るためのアプリです。</p>
+      <p class="privacy-note">記録は、お使いのブラウザ内に保存されます。外部へ送信されません。<br>ブラウザの保存データを削除すると、記録も消えます。</p>
+    </header>
+    <p id="storage-status" class="storage-status" role="status" aria-atomic="true"></p>
+    <p id="storage-error" class="storage-error" role="alert" aria-atomic="true"></p>
+
+    <section class="panel record" aria-labelledby="record-heading">
+      <p class="eyebrow">RECORD</p>
+      <h2 id="record-heading">今日の記録</h2>
+      <p class="record-date"><time id="today"></time></p>
+      <p id="date-change-message" class="date-change-message" role="alert" aria-atomic="true"></p>
+      <div id="date-switch-panel" hidden>
+        <p id="date-switch-help">切り替えると、現在の未保存の入力は引き継がれず、新しい今日の保存済み記録、または空欄に置き換わります。</p>
+        <button id="switch-day" type="button" aria-describedby="date-switch-help">新しい今日へ切り替える</button>
+      </div>
+      <fieldset aria-describedby="mood-error">
+        <legend>いまの気分に近いものを選んでください</legend>
+        <div class="mood-options">
+          <label class="mood-option">
+            <input type="radio" name="mood" value="1">
+            <span class="mood-emoji" aria-hidden="true">😣</span>
+            <span class="mood-label">つらい</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="2">
+            <span class="mood-emoji" aria-hidden="true">😔</span>
+            <span class="mood-label">いまいち</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="3">
+            <span class="mood-emoji" aria-hidden="true">😐</span>
+            <span class="mood-label">ふつう</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="4">
+            <span class="mood-emoji" aria-hidden="true">🙂</span>
+            <span class="mood-label">いい感じ</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="5">
+            <span class="mood-emoji" aria-hidden="true">😄</span>
+            <span class="mood-label">とてもいい感じ</span>
+          </label>
+        </div>
+      </fieldset>
+      <p id="mood-error" class="field-error" role="alert" aria-atomic="true"></p>
+      <div class="note-field">
+        <label for="note">ひとこと<span class="label-detail">（任意・200文字まで）</span></label>
+        <textarea id="note" name="note" aria-describedby="note-count count-help note-error" rows="4" placeholder="今日あったこと、心に残ったことなど"></textarea>
+        <p id="note-count" class="note-count">0 / 200</p>
+        <p id="count-help" class="count-help" hidden>この環境では文字をコードポイント単位で数えるため、組み合わせた絵文字などを複数文字として数える場合があります。</p>
+        <p id="note-error" class="field-error" role="alert" aria-atomic="true"></p>
+      </div>
+      <div class="save-area">
+        <button id="save-record" type="button" aria-describedby="save-help" disabled>保存する</button>
+        <p id="save-help">今日の記録を保存します。同じ日の記録は更新されます。</p>
+      </div>
+      <p id="save-error" class="field-error" role="alert" aria-atomic="true"></p>
+      <p id="check-result" class="check-result" role="status" aria-atomic="true"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="insights-heading">
+      <p class="eyebrow">INSIGHTS</p>
+      <h2 id="insights-heading">気分の振り返り</h2>
+      <div id="insights-content"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="history-heading">
+      <p class="eyebrow">HISTORY</p>
+      <h2 id="history-heading" tabindex="-1">これまでの記録</h2>
+      <p id="delete-result" role="status" aria-atomic="true"></p>
+      <p id="delete-error" class="field-error" role="alert" aria-atomic="true"></p>
+      <div id="history-content"><p class="empty-state">まだ記録がありません</p></div>
+    </section>
+  </main>
+</body>
+</html>
+
+
+
+
+
+
+
+

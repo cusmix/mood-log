@@ -1,0 +1,226 @@
+:root {
+  color-scheme: light;
+  --background: #f5f3ed;
+  --surface: #fffefb;
+  --text: #303b35;
+  --muted: #60675f;
+  --accent: #375c48;
+  --line: #dedfd5;
+  --focus: #285f8c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.8;
+}
+
+.page {
+  width: min(100% - 40px, 820px);
+  margin-inline: auto;
+  padding-block: 52px 64px;
+}
+
+.intro { margin-bottom: 32px; }
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  font-weight: 650;
+  letter-spacing: -.045em;
+  line-height: 1.2;
+}
+
+.brand-dot { color: var(--accent); }
+.intro-text { margin: 16px 0; }
+.privacy-note {
+  margin: 0;
+  border-left: 3px solid #9aa992;
+  padding-left: 14px;
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.panel {
+  margin-top: 20px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+h2 { margin: 0 0 22px; font-size: 1.35rem; font-weight: 650; }
+fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+legend { margin-bottom: 14px; padding: 0; font-size: .9375rem; }
+.mood-options { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.mood-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 6px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--surface);
+}
+
+.mood-option:hover { border-color: #899887; }
+.mood-option:has(input:checked) {
+  border-color: var(--accent);
+  background: #edf2e9;
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+input[type="radio"] {
+  width: 19px;
+  height: 19px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.mood-emoji { font-size: 2rem; line-height: 1.3; }
+.mood-label { font-size: .8125rem; text-align: center; overflow-wrap: anywhere; }
+.note-field { margin-top: 26px; }
+.note-field > label { display: block; margin-bottom: 9px; font-weight: 600; }
+.label-detail { font-size: .875rem; font-weight: 400; }
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  border: 1px solid #858d82;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+
+textarea::placeholder { color: var(--muted); opacity: 1; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.mood-option:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 4px; }
+.save-area { margin-top: 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+button {
+  min-height: 48px;
+  padding: 10px 30px;
+  border: 1px solid #c8cec3;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+}
+
+button:disabled { background: #e4e7df; color: #60675f; cursor: not-allowed; }
+.save-area p { margin: 0; color: var(--muted); font-size: .8125rem; }
+.empty-state {
+  padding: 24px 16px;
+  border: 1px dashed #b8bdb0;
+  border-radius: 10px;
+  background: #f8f8f3;
+  text-align: center;
+}
+
+.empty-state p { margin: 0; }
+.empty-state .empty-detail { margin-top: 6px; color: var(--muted); font-size: .875rem; }
+
+@media (max-width: 600px) {
+  .page { width: calc(100% - 28px); padding-block: 30px 40px; }
+  .panel { padding: 22px 18px; }
+  .mood-options { grid-template-columns: 1fr; gap: 8px; }
+  .mood-option { flex-direction: row; gap: 16px; padding: 12px 16px; }
+  .mood-emoji { font-size: 1.75rem; }
+  .mood-label { font-size: .9375rem; text-align: left; }
+  .save-area { align-items: stretch; flex-direction: column; gap: 10px; }
+  .save-area p { text-align: center; }
+}
+
+@media (forced-colors: active) {
+  .mood-option:has(input:checked) { border: 3px solid Highlight; }
+}
+
+/* STEP 2: date, input feedback, and the enabled check button. */
+.record-date { margin: -12px 0 22px; color: var(--muted); }
+.note-count { margin: 6px 0 0; text-align: right; font-size: .875rem; }
+.count-help { margin: 6px 0; color: var(--muted); font-size: .875rem; }
+.field-error { margin: 8px 0 0; color: #9b3027; font-size: .875rem; }
+.field-error:empty, .check-result:empty { margin: 0; }
+textarea[aria-invalid="true"] { border: 2px solid #9b3027; }
+.note-count.is-over-limit { color: #9b3027; font-weight: 700; }
+.check-result { margin: 16px 0 0; font-weight: 600; }
+button:not(:disabled) { background: var(--accent); color: #fff; cursor: pointer; }
+button:not(:disabled):hover { background: #294837; }
+
+/* STEP 3: readable storage status, independent of input validation. */
+.storage-status { color: var(--muted); font-size: .875rem; }
+.storage-error:not(:empty) {
+  padding: 16px;
+  border: 2px solid #9b3027;
+  border-radius: 10px;
+  background: #fff5f2;
+  color: #82271f;
+}
+.storage-status:empty, .storage-error:empty { margin: 0; }
+
+/* STEP 5: each date groups its mood and note in a readable history item. */
+.history-list { margin: 0; padding-left: 1.5rem; }
+.history-item { padding: 18px 8px; border-bottom: 1px solid var(--line); }
+.history-item:first-child { padding-top: 0; }
+.history-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.history-item h3 { margin: 0 0 12px; font-size: 1rem; }
+.history-item dl { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 8px 12px; margin: 0; }
+.history-item dt { color: var(--muted); font-size: .875rem; }
+.history-item dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 400px) {
+  .history-item dl { grid-template-columns: 1fr; gap: 4px; }
+  .history-item dd + dt { margin-top: 8px; }
+}
+
+.history-item .delete-record { margin-top: 14px; padding: 8px 16px; background: var(--surface); color: #82271f; border-color: #9b3027; }
+.history-item .delete-record:hover { background: #fff0eb; }
+#delete-result:empty, #delete-error:empty { margin: 0; }
+
+/* STEP 7: factual summaries, with labels that identify their time period. */
+.insights-period, .insights-explanation { color: var(--muted); font-size: .875rem; }
+.insights-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0; }
+.insights-list > div { padding: 16px; background: #f8f8f3; border: 1px solid var(--line); border-radius: 10px; }
+.insights-list dt { font-size: .875rem; color: var(--muted); }
+.insights-list dd { margin: 8px 0 0; font-size: 1.125rem; font-weight: 600; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .insights-list { grid-template-columns: 1fr; } }
+
+/* STEP 8: one fixed 1–5 scale, seven chronological columns. */
+.mood-chart { margin: 28px 0 0; }
+.mood-chart figcaption { font-weight: 600; }
+.chart-guide { font-size: .875rem; color: var(--muted); margin: 8px 0 24px; }
+.chart-layout { display: grid; grid-template-columns: 1rem minmax(0, 1fr); gap: 8px; }
+.chart-axis { position: relative; height: 10rem; color: var(--muted); font-size: .75rem; }
+.chart-axis span { position: absolute; right: 0; transform: translateY(-50%); }
+.chart-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; padding: 0; margin: 0; list-style: none; }
+.chart-day { min-width: 0; text-align: center; font-size: .8125rem; }
+.chart-track { height: 10rem; display: flex; align-items: flex-end; justify-content: center; border-bottom: 1px solid #858d82; background: repeating-linear-gradient(to top, transparent 0, transparent calc(20% - 1px), var(--line) calc(20% - 1px), var(--line) 20%); }
+.chart-bar { width: 65%; max-width: 42px; background: var(--accent); border: 1px solid var(--accent); border-radius: 5px 5px 0 0; }
+.chart-day time { display: block; margin-top: 10px; overflow-wrap: anywhere; }
+.chart-mood { display: block; margin-top: 5px; overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .chart-days { gap: 4px; }
+  .chart-layout { gap: 4px; }
+  .chart-day { font-size: .75rem; }
+}
+@media (forced-colors: active) { .chart-bar { background: Highlight; border-color: CanvasText; } }
+
+.date-change-message:not(:empty) { padding: 14px; border: 2px solid var(--accent); border-radius: 10px; background: #edf2e9; }
+.date-change-message:empty { margin: 0; }
+#date-switch-panel { margin-bottom: 24px; }
+#date-switch-help { font-size: .875rem; color: var(--muted); }
+#switch-day { max-width: 100%; white-space: normal; }
